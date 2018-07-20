@@ -463,6 +463,52 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 
 @end
 
+@interface SYLWrapperSample()
+@property (nonatomic, strong) ASNetworkImageNode *coverImageNode;
+@property (nonatomic, strong) ASTextNode *textNode;
+@end
+
+@implementation SYLWrapperSample
+
++ (NSString *)title
+{
+    return @"案例1";
+}
+
++ (NSString *)descriptionTitle
+{
+    return @"案例1";
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _coverImageNode = [[ASNetworkImageNode alloc] init];
+        _coverImageNode.URL = [NSURL URLWithString:@"http://pic1.win4000.com/wallpaper/b/569dc7fe14f5c.jpg"];
+        //_coverImageNode.style.preferredSize = CGSizeMake(100, 100);
+        
+        _textNode = [[ASTextNode alloc] init];
+        _textNode.attributedText = [NSMutableAttributedString attributedStringWithString:@"文字内容" fontSize:15 color:[UIColor whiteColor]];
+    }
+    return self;
+}
+
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
+{
+    /// 填充布局 把图片铺满整个视图
+    ASWrapperLayoutSpec *wrapperLayout = [ASWrapperLayoutSpec wrapperWithLayoutElement:_coverImageNode];
+    
+    /// 居中布局
+    ASCenterLayoutSpec *centerSpec = [ASCenterLayoutSpec centerLayoutSpecWithCenteringOptions:ASCenterLayoutSpecCenteringXY sizingOptions:ASCenterLayoutSpecSizingOptionDefault child:self.textNode];
+    
+    /// 覆盖布局
+    ASOverlayLayoutSpec *overSpec = [ASOverlayLayoutSpec overlayLayoutSpecWithChild:wrapperLayout overlay:centerSpec];
+    return overSpec;
+}
+
+@end
+
 @implementation LayoutExampleNode
 
 + (NSString *)title

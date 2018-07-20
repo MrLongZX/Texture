@@ -40,3 +40,9 @@
 
 @interface UserProfileSample : LayoutExampleNode
 @end
+
+@interface SYLWrapperSample : LayoutExampleNode
+@end
+
+@interface SYLModelCellSample : LayoutExampleNode
+@end

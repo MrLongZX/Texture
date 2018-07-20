@@ -50,7 +50,8 @@
                             [PhotoWithOutsetIconOverlay class],
                             [FlexibleSeparatorSurroundingContent class],
                             [CornerLayoutExample class],
-                            [UserProfileSample class]
+                            [UserProfileSample class],
+                            [SYLWrapperSample class]
                             ];
     }
     
