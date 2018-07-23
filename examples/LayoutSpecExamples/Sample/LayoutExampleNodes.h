@@ -46,3 +46,6 @@
 
 @interface SYLModelCellSample : LayoutExampleNode
 @end
+
+@interface SYLAbsoluteSample : LayoutExampleNode
+@end

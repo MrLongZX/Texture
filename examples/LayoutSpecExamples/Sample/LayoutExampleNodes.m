@@ -621,6 +621,61 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 
 @end
 
+@interface SYLAbsoluteSample()
+/** node1 */
+@property (nonatomic, strong) ASDisplayNode *node1;
+/** node2 */
+@property (nonatomic, strong) ASDisplayNode *node2;
+/** node3 */
+@property (nonatomic, strong) ASDisplayNode *node3;
+/** node4 */
+@property (nonatomic, strong) ASDisplayNode *node4;
+/** node5 */
+@property (nonatomic, strong) ASDisplayNode *node5;
+@end
+
+@implementation SYLAbsoluteSample
+
++ (NSString *)title
+{
+    return @"案例3";
+}
+
++ (NSString *)descriptionTitle
+{
+    return @"案例3";
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _node1 = [[ASDisplayNode alloc] init];
+        _node1.backgroundColor = UIColor.lightGrayColor;
+        
+        _node2 = [[ASDisplayNode alloc] init];
+        _node2.backgroundColor = UIColor.lightGrayColor;
+        
+        _node3 = [[ASDisplayNode alloc] init];
+        _node3.backgroundColor = UIColor.lightGrayColor;
+        
+        _node4 = [[ASDisplayNode alloc] init];
+        _node4.backgroundColor = UIColor.lightGrayColor;
+        
+        _node5 = [[ASDisplayNode alloc] init];
+        _node5.backgroundColor = UIColor.lightGrayColor;
+    }
+    return self;
+}
+
+-(ASLayout *)layoutThatFits:(ASSizeRange)constrainedSize
+{
+    
+    
+    return nil;
+}
+
+@end
 
 @implementation LayoutExampleNode
 

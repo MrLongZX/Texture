@@ -52,7 +52,8 @@
                             [CornerLayoutExample class],
                             [UserProfileSample class],
                             [SYLWrapperSample class],
-                            [SYLModelCellSample class]
+                            [SYLModelCellSample class],
+                            [SYLAbsoluteSample class]
                             ];
     }
     
