@@ -31,8 +31,9 @@
         _customNode = [layoutExampleClass new];
         [self.node addSubnode:_customNode];
         
+        // 背景色
         BOOL needsOnlyYCentering = [layoutExampleClass isEqual:[HeaderWithRightAndLeftItems class]] ||
-        [layoutExampleClass isEqual:[FlexibleSeparatorSurroundingContent class]];
+        [layoutExampleClass isEqual:[FlexibleSeparatorSurroundingContent class]] || [layoutExampleClass isEqual:[SYLModelCellSample class]];
         
         self.node.backgroundColor = needsOnlyYCentering ? [UIColor lightGrayColor] : [UIColor whiteColor];
         

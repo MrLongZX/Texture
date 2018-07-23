@@ -51,7 +51,8 @@
                             [FlexibleSeparatorSurroundingContent class],
                             [CornerLayoutExample class],
                             [UserProfileSample class],
-                            [SYLWrapperSample class]
+                            [SYLWrapperSample class],
+                            [SYLModelCellSample class]
                             ];
     }
     

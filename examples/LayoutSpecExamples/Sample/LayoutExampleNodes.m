@@ -509,6 +509,119 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 
 @end
 
+@interface SYLModelCellSample()
+
+/** 大图 */
+@property (nonatomic, strong) ASNetworkImageNode *coverImageNode;
+/** 标题 */
+@property (nonatomic, strong) ASTextNode *titleNode;
+/** 副标题 */
+@property (nonatomic, strong) ASTextNode *subTitleNode;
+/** 发布时间 */
+@property (nonatomic, strong) ASTextNode *dateTextNode;
+/** 分享图标 */
+@property (nonatomic, strong) ASNetworkImageNode *shareImageNode;
+/** 分享数量 */
+@property (nonatomic, strong) ASTextNode *shareNumberNode;
+/** 喜欢图标 */
+@property (nonatomic, strong) ASNetworkImageNode *likeImageNode;
+/** 喜欢数量 */
+@property (nonatomic, strong) ASTextNode *likeNumberNode;
+
+@end
+
+@implementation SYLModelCellSample
+
++ (NSString *)title
+{
+    return @"案例2";
+}
+
++ (NSString *)descriptionTitle
+{
+    return @"案例2";
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _coverImageNode = [[ASNetworkImageNode alloc] init];
+        _coverImageNode.URL = [NSURL URLWithString:@"http://pic1.win4000.com/wallpaper/b/569dc7fe14f5c.jpg"];
+        
+        _titleNode = [[ASTextNode alloc] init];
+        _titleNode.attributedText = [NSAttributedString attributedStringWithString:@"这个是轻芒阅读(豌豆荚一览) APP 内 AppSo 频道 Cell 的布局，应该也是比较典型的布局之一" fontSize:16 color:UIColor.blackColor];
+        
+        _subTitleNode = [[ASTextNode alloc] init];
+        _subTitleNode.attributedText = [NSAttributedString attributedStringWithString:@"Texture 拥有自己的一套成熟布局方案，虽然学习成本略高，但至少比原生的 AutoLayout 写起来舒服，重点是性能远好于 AutoLayout ，Texture 文档上也指出了这套布局方案的的优点" fontSize:13 color:UIColor.blackColor];
+        
+        _dateTextNode = [[ASTextNode alloc] init];
+        _dateTextNode.attributedText = [NSAttributedString attributedStringWithString:@"昨天" fontSize:12 color:UIColor.blackColor];
+        
+        _shareImageNode = [[ASNetworkImageNode alloc] init];
+        _shareImageNode.URL = [NSURL URLWithString:@"http://pic1.win4000.com/wallpaper/b/569dc7fe14f5c.jpg"];
+        
+        _shareNumberNode = [[ASTextNode alloc] init];
+        _shareNumberNode.attributedText = [NSAttributedString attributedStringWithString:@"12" fontSize:12 color:UIColor.blackColor];
+        
+        _likeImageNode = [[ASNetworkImageNode alloc] init];
+        _likeImageNode.URL = [NSURL URLWithString:@"http://pic1.win4000.com/wallpaper/b/569dc7fe14f5c.jpg"];
+        
+        _likeNumberNode = [[ASTextNode alloc] init];
+        _likeNumberNode.attributedText = [NSAttributedString attributedStringWithString:@"20" fontSize:12 color:UIColor.blackColor];
+        
+    }
+    return self;
+}
+
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
+{
+    self.shareImageNode.style.preferredSize = CGSizeMake(15, 15);
+    self.likeImageNode.style.preferredSize = CGSizeMake(15, 15);
+    
+    ASStackLayoutSpec *likeLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    likeLayout.spacing = 4.0;
+    likeLayout.justifyContent = ASStackLayoutJustifyContentStart;
+    likeLayout.alignItems = ASStackLayoutAlignItemsCenter;
+    likeLayout.children = @[self.likeImageNode, self.likeNumberNode];
+
+    ASStackLayoutSpec *shareLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    shareLayout.spacing = 4.0;
+    shareLayout.justifyContent = ASStackLayoutJustifyContentStart;
+    shareLayout.alignItems = ASStackLayoutAlignItemsCenter;
+    shareLayout.children = @[self.shareImageNode, self.shareNumberNode];
+    
+    ASStackLayoutSpec *otherLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    otherLayout.spacing = 12.0;
+    otherLayout.justifyContent = ASStackLayoutJustifyContentStart;
+    otherLayout.alignItems = ASStackLayoutAlignItemsCenter;
+    otherLayout.children = @[likeLayout, shareLayout];
+    
+    ASStackLayoutSpec *bottomLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    bottomLayout.justifyContent = ASStackLayoutJustifyContentSpaceBetween;
+    bottomLayout.alignItems = ASStackLayoutAlignItemsCenter;
+    bottomLayout.children = @[self.dateTextNode, otherLayout];
+    
+    self.titleNode.style.spacingBefore = 12;
+    
+    self.subTitleNode.style.spacingBefore = 16;
+    self.subTitleNode.style.spacingAfter = 20;
+    
+    ASRatioLayoutSpec *rationLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:0.5 child:self.coverImageNode];
+    
+    ASStackLayoutSpec *contentLayout = [ASStackLayoutSpec verticalStackLayoutSpec];
+    contentLayout.justifyContent = ASStackLayoutJustifyContentStart;
+    contentLayout.alignItems = ASStackLayoutAlignItemsStretch;
+    contentLayout.children = @[rationLayout, self.titleNode, self.subTitleNode, bottomLayout];
+    
+    ASInsetLayoutSpec *insetLayout = [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(16, 16, 16, 16) child:contentLayout];
+    
+    return insetLayout;
+}
+
+@end
+
+
 @implementation LayoutExampleNode
 
 + (NSString *)title
