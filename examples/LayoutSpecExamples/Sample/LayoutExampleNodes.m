@@ -670,7 +670,12 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 
 -(ASLayout *)layoutThatFits:(ASSizeRange)constrainedSize
 {
+    self.node1.style.preferredSize = CGSizeMake(constrainedSize.max.width, 136);
     
+    self.node2.style.preferredSize = CGSizeMake(58, 25);
+    self.node2.style.layoutPosition = CGPointMake(14, 95);
+    
+    self.node3.style.height = ASDimensionMake(37);
     
     return nil;
 }
