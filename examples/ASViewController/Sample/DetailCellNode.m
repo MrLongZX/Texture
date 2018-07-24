@@ -50,6 +50,9 @@
     // view model setter method.
     // In this case as we need to know the size of the node the url is set in layoutDidFinish so
     // we have the calculatedSize available
+    
+    // 在一般情况下，尽快设置ASNetworkImageNode的URL。最好是在init或视图模型setter方法中。
+    // 在这种情况下，由于我们需要知道节点的大小，url在layoutDidFinish中设置，我们才可以使用calculatedSize
     self.imageNode.URL = [self imageURL];
 }
 

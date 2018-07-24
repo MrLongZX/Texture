@@ -17,9 +17,7 @@
 
 #import "ViewController.h"
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
-
 #import "DetailViewController.h"
-
 
 @interface ViewController () <ASTableDataSource, ASTableDelegate>
 
@@ -49,7 +47,6 @@
     self.node.dataSource = nil;
 }
 
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad
@@ -68,7 +65,6 @@
     
     [self.node deselectRowAtIndexPath:self.node.indexPathForSelectedRow animated:YES];
 }
-
 
 #pragma mark - ASTableDataSource / ASTableDelegate
 

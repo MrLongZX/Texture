@@ -22,14 +22,12 @@
 
 static const NSInteger kImageHeight = 200;
 
-
 @interface DetailRootNode () <ASCollectionDataSource, ASCollectionDelegate>
 
 @property (nonatomic, copy) NSString *imageCategory;
 @property (nonatomic, strong) ASCollectionNode *collectionNode;
 
 @end
-
 
 @implementation DetailRootNode
 
@@ -47,6 +45,8 @@ static const NSInteger kImageHeight = 200;
 
         // Create ASCollectionView. We don't have to add it explicitly as subnode as we will set usesImplicitHierarchyManagement to YES
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.minimumLineSpacing = 8;
+        
         _collectionNode = [[ASCollectionNode alloc] initWithCollectionViewLayout:layout];
         _collectionNode.delegate = self;
         _collectionNode.dataSource = self;
@@ -76,6 +76,7 @@ static const NSInteger kImageHeight = 200;
     return 10;
 }
 
+// 线程安全 优先于方法-collectionNode:nodeForItemAtIndexPath:
 - (ASCellNodeBlock)collectionNode:(ASCollectionNode *)collectionNode nodeBlockForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *imageCategory = self.imageCategory;
