@@ -477,7 +477,7 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 
 + (NSString *)descriptionTitle
 {
-    return @"案例1";
+    return @"案例1 填充、居中、覆盖布局";
 }
 
 - (instancetype)init
@@ -539,7 +539,7 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 
 + (NSString *)descriptionTitle
 {
-    return @"案例2";
+    return @"案例2 典型cell布局";
 }
 
 - (instancetype)init
@@ -643,7 +643,7 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
 
 + (NSString *)descriptionTitle
 {
-    return @"案例3";
+    return @"案例3 绝对布局例子";
 }
 
 - (instancetype)init
@@ -651,24 +651,24 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
     self = [super init];
     if (self) {
         _node1 = [[ASDisplayNode alloc] init];
-        _node1.backgroundColor = UIColor.lightGrayColor;
+        _node1.backgroundColor = UIColor.lightBlueColor;
         
         _node2 = [[ASDisplayNode alloc] init];
-        _node2.backgroundColor = UIColor.lightGrayColor;
+        _node2.backgroundColor = UIColor.greenColor;
         
         _node3 = [[ASDisplayNode alloc] init];
-        _node3.backgroundColor = UIColor.lightGrayColor;
+        _node3.backgroundColor = UIColor.lightBlueColor;
         
         _node4 = [[ASDisplayNode alloc] init];
-        _node4.backgroundColor = UIColor.lightGrayColor;
+        _node4.backgroundColor = UIColor.lightBlueColor;
         
         _node5 = [[ASDisplayNode alloc] init];
-        _node5.backgroundColor = UIColor.lightGrayColor;
+        _node5.backgroundColor = UIColor.lightBlueColor;
     }
     return self;
 }
 
--(ASLayout *)layoutThatFits:(ASSizeRange)constrainedSize
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
 {
     self.node1.style.preferredSize = CGSizeMake(constrainedSize.max.width, 136);
     
@@ -676,11 +676,160 @@ static CGFloat const kSampleBadgeCornerRadius = 12;
     self.node2.style.layoutPosition = CGPointMake(14, 95);
     
     self.node3.style.height = ASDimensionMake(37);
+    self.node4.style.preferredSize = CGSizeMake(80, 20);
+    self.node5.style.preferredSize =  CGSizeMake(80, 20);
     
-    return nil;
+    // 布局规则 主轴方向 前后间隔
+    self.node4.style.spacingBefore = 14;
+    self.node5.style.spacingAfter = 14;
+    
+    ASAbsoluteLayoutSpec *absoluteLayout = [ASAbsoluteLayoutSpec absoluteLayoutSpecWithChildren:@[self.node2]];
+    ASOverlayLayoutSpec *overLayout = [ASOverlayLayoutSpec overlayLayoutSpecWithChild:self.node1 overlay:absoluteLayout];
+    
+    ASInsetLayoutSpec *insetLayout = [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(0, 14, 0, 14) child:self.node3];
+    // 布局规则也有style
+    insetLayout.style.spacingBefore = 13;
+    insetLayout.style.spacingAfter = 25;
+    
+    ASStackLayoutSpec *bottomLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    bottomLayout.justifyContent = ASStackLayoutJustifyContentSpaceBetween;
+    bottomLayout.alignItems = ASStackLayoutAlignItemsCenter;
+    bottomLayout.children = @[self.node4, self.node5];
+    bottomLayout.style.spacingAfter = 10;
+    
+    ASStackLayoutSpec *stackLayout = [ASStackLayoutSpec verticalStackLayoutSpec];
+    stackLayout.justifyContent = ASStackLayoutJustifyContentStart;
+    stackLayout.alignItems = ASStackLayoutAlignItemsStretch;
+    stackLayout.children = @[overLayout, insetLayout, bottomLayout];
+    
+    return stackLayout;
 }
 
 @end
+
+@interface SYLFlexGrowSample()
+/** node1 */
+@property (nonatomic, strong) ASDisplayNode *node1;
+/** node2 */
+@property (nonatomic, strong) ASDisplayNode *node2;
+/** node3 */
+@property (nonatomic, strong) ASDisplayNode *node3;
+/** node4 */
+@property (nonatomic, strong) ASDisplayNode *node4;
+@end
+
+@implementation SYLFlexGrowSample
+
++ (NSString *)title
+{
+    return @"案例4";
+}
+
++ (NSString *)descriptionTitle
+{
+    return @"案例4 flowGrow用法";
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _node1 = [[ASDisplayNode alloc] init];
+        _node1.backgroundColor = UIColor.lightBlueColor;
+        
+        _node2 = [[ASDisplayNode alloc] init];
+        _node2.backgroundColor = UIColor.lightBlueColor;
+        
+        _node3 = [[ASDisplayNode alloc] init];
+        _node3.backgroundColor = UIColor.lightBlueColor;
+        
+        _node4 = [[ASDisplayNode alloc] init];
+        _node4.backgroundColor = UIColor.lightBlueColor;
+    }
+    return self;
+}
+
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
+{
+    self.node1.style.height = ASDimensionMake(20);
+    
+    NSMutableArray *layoutArray = @[].mutableCopy;
+    
+    NSArray *nodeArray = @[self.node2, self.node3, self.node4];
+    for (ASDisplayNode *node in nodeArray) {
+        // 注意 2/3 作为第一个参数 会蹦
+        ASRatioLayoutSpec *ratioLayout = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:2.0/3.0 child:node];
+        ratioLayout.style.flexGrow = 1;
+        [layoutArray addObject:ratioLayout];
+    }
+    
+    ASStackLayoutSpec *imageLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    imageLayout.justifyContent = ASStackLayoutJustifyContentStart;
+    imageLayout.alignItems = ASStackLayoutAlignItemsStart;
+    imageLayout.spacing = 14;
+    imageLayout.children = layoutArray;
+    
+    ASStackLayoutSpec *contentLayout = [ASStackLayoutSpec verticalStackLayoutSpec];
+    contentLayout.justifyContent = ASStackLayoutJustifyContentStart;
+    contentLayout.alignItems = ASStackLayoutAlignItemsStretch;
+    contentLayout.spacing = 22;
+    contentLayout.children = @[self.node1, imageLayout];
+    
+    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(22, 16, 22, 16) child:contentLayout];
+}
+
+@end
+
+@interface SYLFlexShrinkSample()
+/** node */
+@property (nonatomic, strong) ASDisplayNode *node;
+/** 标题 */
+@property (nonatomic, strong) ASTextNode *titleNode;
+@end
+
+@implementation SYLFlexShrinkSample
+
++ (NSString *)title
+{
+    return @"案例5";
+}
+
++ (NSString *)descriptionTitle
+{
+    return @"案例5 flowShrink用法";
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _node = [[ASDisplayNode alloc] init];
+        _node.backgroundColor = UIColor.lightBlueColor;
+        
+        _titleNode = [[ASTextNode alloc] init];
+        _titleNode.attributedText = [NSAttributedString attributedStringWithString:@"这个是轻芒阅读(豌豆荚一览) APP 内 AppSo 频道 Cell 的布局，应该也是比较典型的布局之一" fontSize:16 color:UIColor.blackColor];
+        _titleNode.maximumNumberOfLines = 1;
+        _titleNode.truncationMode = NSLineBreakByTruncatingTail;
+    }
+    return self;
+}
+
+- (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
+{
+    self.node.style.preferredSize = CGSizeMake(42, 18);
+    self.titleNode.style.flexShrink = 1;
+    
+    ASStackLayoutSpec *contentLayout = [ASStackLayoutSpec horizontalStackLayoutSpec];
+    contentLayout.justifyContent = ASStackLayoutJustifyContentSpaceBetween;
+    contentLayout.alignItems = ASStackLayoutAlignItemsStart;
+    contentLayout.children = @[self.titleNode, self.node];
+    
+    ASInsetLayoutSpec *insetLayout = [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(16, 16, 16, 16) child:contentLayout];
+    return insetLayout;
+}
+
+@end
+
 
 @implementation LayoutExampleNode
 

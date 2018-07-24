@@ -49,3 +49,9 @@
 
 @interface SYLAbsoluteSample : LayoutExampleNode
 @end
+
+@interface SYLFlexGrowSample : LayoutExampleNode
+@end
+
+@interface SYLFlexShrinkSample : LayoutExampleNode
+@end

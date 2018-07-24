@@ -33,7 +33,7 @@
         
         // 背景色
         BOOL needsOnlyYCentering = [layoutExampleClass isEqual:[HeaderWithRightAndLeftItems class]] ||
-        [layoutExampleClass isEqual:[FlexibleSeparatorSurroundingContent class]] || [layoutExampleClass isEqual:[SYLModelCellSample class]];
+        [layoutExampleClass isEqual:[FlexibleSeparatorSurroundingContent class]] || [layoutExampleClass isEqual:[SYLModelCellSample class]] || [layoutExampleClass isEqual:[SYLAbsoluteSample class]] || [layoutExampleClass isEqual:[SYLFlexGrowSample class]] || [layoutExampleClass isEqual:[SYLFlexShrinkSample class]];
         
         self.node.backgroundColor = needsOnlyYCentering ? [UIColor lightGrayColor] : [UIColor whiteColor];
         

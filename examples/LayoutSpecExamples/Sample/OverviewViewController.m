@@ -53,7 +53,9 @@
                             [UserProfileSample class],
                             [SYLWrapperSample class],
                             [SYLModelCellSample class],
-                            [SYLAbsoluteSample class]
+                            [SYLAbsoluteSample class],
+                            [SYLFlexGrowSample class],
+                            [SYLFlexShrinkSample class]
                             ];
     }
     
