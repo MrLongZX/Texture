@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22118549210884880049CC39 /* YLDetailCellNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 22118542210884880049CC39 /* YLDetailCellNode.m */; };
+		2211854A210884880049CC39 /* YLDetailRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 22118544210884880049CC39 /* YLDetailRootNode.m */; };
+		2211854B210884880049CC39 /* YLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22118546210884880049CC39 /* YLDetailViewController.m */; };
+		2211854C210884880049CC39 /* YLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22118548210884880049CC39 /* YLViewController.m */; };
 		5CF3EF5E344946731D4F13F2 /* libPods-Sample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 465082D55CCF1B0CB1AEBACC /* libPods-Sample.a */; };
 		694993D21C8B334F00491CA5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 694993D11C8B334F00491CA5 /* main.m */; };
 		694993D51C8B334F00491CA5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 694993D41C8B334F00491CA5 /* AppDelegate.m */; };
@@ -20,6 +24,14 @@
 
 /* Begin PBXFileReference section */
 		15AD337503831C4D33FF8B3A /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
+		22118541210884880049CC39 /* YLDetailCellNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDetailCellNode.h; sourceTree = "<group>"; };
+		22118542210884880049CC39 /* YLDetailCellNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDetailCellNode.m; sourceTree = "<group>"; };
+		22118543210884880049CC39 /* YLDetailRootNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDetailRootNode.h; sourceTree = "<group>"; };
+		22118544210884880049CC39 /* YLDetailRootNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDetailRootNode.m; sourceTree = "<group>"; };
+		22118545210884880049CC39 /* YLDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDetailViewController.h; sourceTree = "<group>"; };
+		22118546210884880049CC39 /* YLDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDetailViewController.m; sourceTree = "<group>"; };
+		22118547210884880049CC39 /* YLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLViewController.h; sourceTree = "<group>"; };
+		22118548210884880049CC39 /* YLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLViewController.m; sourceTree = "<group>"; };
 		465082D55CCF1B0CB1AEBACC /* libPods-Sample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Sample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		694993CD1C8B334F00491CA5 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		694993D11C8B334F00491CA5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -58,6 +70,21 @@
 				97482F27BE2F7583EFE1BC2C /* Pods-Sample.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		22118540210884880049CC39 /* YLStudy */ = {
+			isa = PBXGroup;
+			children = (
+				22118541210884880049CC39 /* YLDetailCellNode.h */,
+				22118542210884880049CC39 /* YLDetailCellNode.m */,
+				22118543210884880049CC39 /* YLDetailRootNode.h */,
+				22118544210884880049CC39 /* YLDetailRootNode.m */,
+				22118545210884880049CC39 /* YLDetailViewController.h */,
+				22118546210884880049CC39 /* YLDetailViewController.m */,
+				22118547210884880049CC39 /* YLViewController.h */,
+				22118548210884880049CC39 /* YLViewController.m */,
+			);
+			path = YLStudy;
 			sourceTree = "<group>";
 		};
 		478C8D7C412DCBDFE14640D8 /* Frameworks */ = {
@@ -99,6 +126,7 @@
 				69DCA5241C8BE01F006FF548 /* DetailRootNode.m */,
 				69DCA5261C8BE031006FF548 /* DetailCellNode.h */,
 				69DCA5271C8BE031006FF548 /* DetailCellNode.m */,
+				22118540210884880049CC39 /* YLStudy */,
 				694993DC1C8B334F00491CA5 /* Assets.xcassets */,
 				694993D01C8B334F00491CA5 /* Supporting Files */,
 			);
@@ -207,11 +235,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				694993D81C8B334F00491CA5 /* ViewController.m in Sources */,
+				2211854C210884880049CC39 /* YLViewController.m in Sources */,
 				694993D51C8B334F00491CA5 /* AppDelegate.m in Sources */,
+				22118549210884880049CC39 /* YLDetailCellNode.m in Sources */,
 				694993D21C8B334F00491CA5 /* main.m in Sources */,
 				69DCA5221C8B3D30006FF548 /* DetailViewController.m in Sources */,
+				2211854B210884880049CC39 /* YLDetailViewController.m in Sources */,
 				69DCA5281C8BE031006FF548 /* DetailCellNode.m in Sources */,
 				69DCA5251C8BE01F006FF548 /* DetailRootNode.m in Sources */,
+				2211854A210884880049CC39 /* YLDetailRootNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
