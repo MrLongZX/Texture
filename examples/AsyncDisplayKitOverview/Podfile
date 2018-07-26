@@ -5,6 +5,6 @@ platform :ios, '9.0'
 # use_frameworks!
 
 target 'Sample' do
-	pod 'Texture', :path => '../..'
+	pod 'Texture'
 end
 

@@ -201,6 +201,7 @@
 - (ASLayoutSpec*)videoPlayerNodeLayoutSpec:(ASVideoPlayerNode *)videoPlayer forControls:(NSDictionary *)controls forMaximumSize:(CGSize)maxSize
 {
   ASLayoutSpec *spacer = [[ASLayoutSpec alloc] init];
+  // 放大比例,占据多余空间
   spacer.style.flexGrow = 1.0;
 
   UIEdgeInsets insets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
@@ -223,33 +224,33 @@
   }
 
 
+  // 喇叭布局
   ASStackLayoutSpec *topBarSpec = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
                                                                           spacing:10.0
                                                                    justifyContent:ASStackLayoutJustifyContentStart
                                                                        alignItems:ASStackLayoutAlignItemsCenter
                                                                          children:topBarControls];
-
+  
   ASInsetLayoutSpec *topBarInsetSpec = [ASInsetLayoutSpec insetLayoutSpecWithInsets:insets child:topBarSpec];
-
+  
+  // 播放器控制bar布局
   ASStackLayoutSpec *controlbarSpec = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionHorizontal
                                                                               spacing:10.0
                                                                        justifyContent:ASStackLayoutJustifyContentStart
                                                                            alignItems:ASStackLayoutAlignItemsCenter
                                                                              children: controlBarControls ];
-  controlbarSpec.style.alignSelf = ASStackLayoutAlignSelfStretch;
-
-
-
+  //controlbarSpec.style.alignSelf = ASStackLayoutAlignSelfStretch;
+  
   ASInsetLayoutSpec *controlbarInsetSpec = [ASInsetLayoutSpec insetLayoutSpecWithInsets:insets child:controlbarSpec];
-
-  controlbarInsetSpec.style.alignSelf = ASStackLayoutAlignSelfStretch;
-
+  
+  //controlbarInsetSpec.style.alignSelf = ASStackLayoutAlignSelfStretch;
+  
   ASStackLayoutSpec *mainVerticalStack = [ASStackLayoutSpec stackLayoutSpecWithDirection:ASStackLayoutDirectionVertical
                                                                                  spacing:0.0
                                                                           justifyContent:ASStackLayoutJustifyContentStart
                                                                               alignItems:ASStackLayoutAlignItemsStart
                                                                                 children:@[topBarInsetSpec, spacer, controlbarInsetSpec]];
-
+  
   return mainVerticalStack;
 
 }
