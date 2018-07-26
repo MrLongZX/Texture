@@ -37,22 +37,21 @@
   _tableNode = [[ASTableNode alloc] initWithStyle:UITableViewStylePlain];
   _tableNode.dataSource = self;
   _tableNode.delegate = self;
-
+  
   if (!(self = [super initWithNode:_tableNode]))
     return nil;
-
+  
   self.title = @"Horizontal Scrolling Gradients";
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo
-                                                                                         target:self
-                                                                                         action:@selector(reloadEverything)];
-
+  
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(reloadEverything)];
+  
   return self;
 }
 
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
+  
   _tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
