@@ -45,6 +45,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 @implementation OverviewDisplayNodeWithSizeBlock
 
 // FIXME: Use new ASDisplayNodeAPI (layoutSpecBlock) API if shipped
+// 在node展示的时候才调用这个接口
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
 {
     OverviewDisplayNodeSizeThatFitsBlock block = self.sizeThatFitsBlock;
@@ -58,7 +59,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 @end
 
 
-#pragma mark - OverviewTitleDescriptionCellNode
+#pragma mark - OverviewTitleDescriptionCellNode 概述视图的标题加描述cell
 
 @interface OverviewTitleDescriptionCellNode : ASCellNode
 
@@ -88,6 +89,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     BOOL hasDescription = self.descriptionNode.attributedText.length > 0;
     
     ASStackLayoutSpec *verticalStackLayoutSpec = [ASStackLayoutSpec verticalStackLayoutSpec];
+    // justifyContent 默认为：ASStackLayoutJustifyContentStart 所以可以不用写
     verticalStackLayoutSpec.alignItems = ASStackLayoutAlignItemsStart;
     verticalStackLayoutSpec.spacing = 5.0;
     verticalStackLayoutSpec.children = hasDescription ? @[self.titleNode, self.descriptionNode] : @[self.titleNode];
@@ -152,13 +154,14 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     ASDisplayNode *childNode = nil;
 
     
-// Setup Nodes Container
+// Setup Nodes Container 设置节点容器
 // ---------------------------------------------------------------------------------------------------------
     NSMutableArray *mutableNodesContainerData = [NSMutableArray array];
     
 #pragma mark ASCollectionNode
     childNode = [OverviewASCollectionNode new];
 
+    // 由collectoin node 子视图 获取 父视图
     parentNode = [self centeringParentNodeWithInset:UIEdgeInsetsZero child:childNode];
     parentNode.entryTitle = @"ASCollectionNode";
     parentNode.entryDescription = @"ASCollectionNode is a node based class that wraps an ASCollectionView. It can be used as a subnode of another node, and provide room for many (great) features and improvements later on.";
@@ -167,6 +170,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 #pragma mark ASTableNode
     childNode = [OverviewASTableNode new];
     
+    // 由table node 子视图 获取 父视图
     parentNode = [self centeringParentNodeWithInset:UIEdgeInsetsZero child:childNode];
     parentNode.entryTitle = @"ASTableNode";
     parentNode.entryDescription = @"ASTableNode is a node based class that wraps an ASTableView. It can be used as a subnode of another node, and provide room for many (great) features and improvements later on.";
@@ -175,13 +179,14 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 #pragma mark ASPagerNode
     childNode = [OverviewASPagerNode new];
     
+    // 由pager node 子视图 获取 父视图
     parentNode = [self centeringParentNodeWithInset:UIEdgeInsetsZero child:childNode];
     parentNode.entryTitle = @"ASPagerNode";
     parentNode.entryDescription = @"ASPagerNode is a specialized subclass of ASCollectionNode. Using it allows you to produce a page style UI similar to what you'd create with a UIPageViewController with UIKit. Luckily, the API is quite a bit simpler than UIPageViewController's.";
     [mutableNodesContainerData addObject:parentNode];
     
     
-// Setup Nodes
+// Setup Nodes 设置节点
 // ---------------------------------------------------------------------------------------------------------
     NSMutableArray *mutableNodesData = [NSMutableArray array];
 
@@ -253,7 +258,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     ASMapNode *mapNode = [ASMapNode new];
     mapNode.style.preferredSize = CGSizeMake(300.0, 300.0);
     
-    // San Francisco
+    // San Francisco 显示的地区
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(37.7749, -122.4194);
     mapNode.region = MKCoordinateRegionMakeWithDistance(coord, 20000, 20000);
     
@@ -290,7 +295,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [mutableNodesData addObject:parentNode];
     
     
-// Layout Specs
+// Layout Specs 布局规则
 // ---------------------------------------------------------------------------------------------------------
     NSMutableArray *mutableLayoutSpecData = [NSMutableArray array];
     
@@ -307,9 +312,9 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [mutableLayoutSpecData addObject:parentNode];
     
 
-#pragma mark ASBackgroundLayoutSpec
+#pragma mark ASBackgroundLayoutSpec 背景节点在下面
     ASDisplayNode *backgroundNode = [ASDisplayNode new];
-    backgroundNode.backgroundColor = [UIColor greenColor];
+    backgroundNode.backgroundColor = [UIColor lightGrayColor];
     
     childNode = [self childNode];
     childNode.backgroundColor = [childNode.backgroundColor colorWithAlphaComponent:0.5];
@@ -320,12 +325,13 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     parentNode.sizeThatFitsBlock = ^ASLayoutSpec *(ASSizeRange constrainedSize) {
         return [ASBackgroundLayoutSpec backgroundLayoutSpecWithChild:childNode background:backgroundNode];
     };
+    // 需要添加子节点
     [parentNode addSubnode:backgroundNode];
     [parentNode addSubnode:childNode];
     [mutableLayoutSpecData addObject:parentNode];
     
 
-#pragma mark ASOverlayLayoutSpec
+#pragma mark ASOverlayLayoutSpec 覆盖节点在上面
     ASDisplayNode *overlayNode = [ASDisplayNode new];
     overlayNode.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5];
     
@@ -357,7 +363,8 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [mutableLayoutSpecData addObject:parentNode];
 
 #pragma mark ASRatioLayoutSpec
-    childNode = [self childNode];
+    // 研究下好像有问题
+    childNode = [self childNotHaveSizeNode];
     
     parentNode = [self parentNodeWithChild:childNode];
     parentNode.entryTitle = @"ASRatioLayoutSpec";
@@ -431,11 +438,13 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 #pragma mark Horizontal ASStackLayoutSpec
     childNode1 = [ASDisplayNode new];
     childNode1.style.preferredSize = CGSizeMake(10.0, 20.0);
+    // 有剩余空间 放大比例
     childNode1.style.flexGrow = 1.0;
     childNode1.backgroundColor = [UIColor greenColor];
     
     childNode2 = [ASDisplayNode new];
     childNode2.style.preferredSize = CGSizeMake(10.0, 20.0);
+    // 这一属性好像没有起作用
     childNode2.style.alignSelf = ASStackLayoutAlignSelfStretch;
     childNode2.backgroundColor = [UIColor blueColor];
     
@@ -493,8 +502,10 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 
 - (OverviewDisplayNodeWithSizeBlock *)centeringParentNodeWithInset:(UIEdgeInsets)insets child:(ASDisplayNode *)child
 {
+    // 父视图
     OverviewDisplayNodeWithSizeBlock *parentNode = [OverviewDisplayNodeWithSizeBlock new];
     [parentNode addSubnode:child];
+    // 设置布局
     parentNode.sizeThatFitsBlock = ^ASLayoutSpec *(ASSizeRange constrainedSize) {
         ASCenterLayoutSpec *centerLayoutSpec = [ASCenterLayoutSpec centerLayoutSpecWithCenteringOptions:ASCenterLayoutSpecCenteringXY sizingOptions:ASCenterLayoutSpecSizingOptionDefault child:child];
         return [ASInsetLayoutSpec insetLayoutSpecWithInsets:insets child:centerLayoutSpec];
@@ -502,10 +513,18 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     return parentNode;
 }
 
+// 设置子节点通用属性
 - (ASDisplayNode *)childNode
 {
     ASDisplayNode *childNode = [ASDisplayNode new];
     childNode.style.preferredSize = CGSizeMake(50, 50);
+    childNode.backgroundColor = [UIColor blueColor];
+    return childNode;
+}
+
+- (ASDisplayNode *)childNotHaveSizeNode
+{
+    ASDisplayNode *childNode = [ASDisplayNode new];
     childNode.backgroundColor = [UIColor blueColor];
     return childNode;
 }

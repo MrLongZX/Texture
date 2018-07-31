@@ -19,14 +19,16 @@
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
-
 @protocol ASLayoutSpecListEntry <NSObject>
 
+/// 标题
 - (NSString *)entryTitle;
+/// 描述
 - (NSString *)entryDescription;
 
 @end
 
+// 概述组件
 @interface OverviewComponentsViewController : ASViewController
 
 
