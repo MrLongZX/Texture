@@ -102,7 +102,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 
 #pragma mark - OverviewComponentsViewController
 
-@interface OverviewComponentsViewController ()
+@interface OverviewComponentsViewController ()<ASTableDelegate,ASTableDataSource>
 
 @property (nonatomic, copy) NSArray *data;
 @property (nonatomic, strong) ASTableNode *tableNode;
@@ -116,23 +116,24 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 
 - (instancetype)init
 {
-  _tableNode = [ASTableNode new];
-  
-  self = [super initWithNode:_tableNode];
-  
-  if (self) {
-    _tableNode.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableNode.delegate =  (id<ASTableDelegate>)self;
-    _tableNode.dataSource = (id<ASTableDataSource>)self;
-  }
-  
-  return self;
+    // 虽然设置为group类型，但texture好像没有提供设置分组后头视图高度，以及没有提供头视图基本展示控件
+    _tableNode = [[ASTableNode alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    self = [super initWithNode:_tableNode];
+    
+    if (self) {
+        _tableNode.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _tableNode.delegate =  (id<ASTableDelegate>)self;
+        _tableNode.dataSource = (id<ASTableDataSource>)self;
+    }
+    
+    return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.title = @"AsyncDisplayKit";
     
     [self setupData];
@@ -152,15 +153,15 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
 {
     OverviewDisplayNodeWithSizeBlock *parentNode = nil;
     ASDisplayNode *childNode = nil;
-
     
-// Setup Nodes Container 设置节点容器
-// ---------------------------------------------------------------------------------------------------------
+    
+    // Setup Nodes Container 设置节点容器
+    // ---------------------------------------------------------------------------------------------------------
     NSMutableArray *mutableNodesContainerData = [NSMutableArray array];
     
 #pragma mark ASCollectionNode
     childNode = [OverviewASCollectionNode new];
-
+    
     // 由collectoin node 子视图 获取 父视图
     parentNode = [self centeringParentNodeWithInset:UIEdgeInsetsZero child:childNode];
     parentNode.entryTitle = @"ASCollectionNode";
@@ -186,10 +187,10 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [mutableNodesContainerData addObject:parentNode];
     
     
-// Setup Nodes 设置节点
-// ---------------------------------------------------------------------------------------------------------
+    // Setup Nodes 设置节点
+    // ---------------------------------------------------------------------------------------------------------
     NSMutableArray *mutableNodesData = [NSMutableArray array];
-
+    
 #pragma mark ASDisplayNode
     ASDisplayNode *displayNode = [self childNode];
     
@@ -295,8 +296,8 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [mutableNodesData addObject:parentNode];
     
     
-// Layout Specs 布局规则
-// ---------------------------------------------------------------------------------------------------------
+    // Layout Specs 布局规则
+    // ---------------------------------------------------------------------------------------------------------
     NSMutableArray *mutableLayoutSpecData = [NSMutableArray array];
     
 #pragma mark ASInsetLayoutSpec
@@ -311,7 +312,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [parentNode addSubnode:childNode];
     [mutableLayoutSpecData addObject:parentNode];
     
-
+    
 #pragma mark ASBackgroundLayoutSpec 背景节点在下面
     ASDisplayNode *backgroundNode = [ASDisplayNode new];
     backgroundNode.backgroundColor = [UIColor lightGrayColor];
@@ -330,7 +331,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [parentNode addSubnode:childNode];
     [mutableLayoutSpecData addObject:parentNode];
     
-
+    
 #pragma mark ASOverlayLayoutSpec 覆盖节点在上面
     ASDisplayNode *overlayNode = [ASDisplayNode new];
     overlayNode.backgroundColor = [[UIColor greenColor] colorWithAlphaComponent:0.5];
@@ -347,7 +348,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [parentNode addSubnode:overlayNode];
     [mutableLayoutSpecData addObject:parentNode];
     
-
+    
 #pragma mark ASCenterLayoutSpec
     childNode = [self childNode];
     
@@ -361,7 +362,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     };
     [parentNode addSubnode:childNode];
     [mutableLayoutSpecData addObject:parentNode];
-
+    
 #pragma mark ASRatioLayoutSpec
     // 研究下好像有问题
     childNode = [self childNotHaveSizeNode];
@@ -374,7 +375,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     };
     [parentNode addSubnode:childNode];
     [mutableLayoutSpecData addObject:parentNode];
-
+    
 #pragma mark ASRelativeLayoutSpec
     childNode = [self childNode];
     
@@ -389,7 +390,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     };
     [parentNode addSubnode:childNode];
     [mutableLayoutSpecData addObject:parentNode];
-
+    
 #pragma mark ASAbsoluteLayoutSpec
     childNode = [self childNode];
     // Add a layout position to the child node that the absolute layout spec will pick up and place it on that position
@@ -404,7 +405,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [parentNode addSubnode:childNode];
     [mutableLayoutSpecData addObject:parentNode];
     
-
+    
 #pragma mark Vertical ASStackLayoutSpec
     ASDisplayNode *childNode1 = [self childNode];
     childNode1.backgroundColor = [UIColor greenColor];
@@ -475,9 +476,9 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [parentNode addSubnode:childNode3];
     [mutableLayoutSpecData addObject:parentNode];
     
-
-// Setup Data
-// ---------------------------------------------------------------------------------------------------------
+    
+    // Setup Data
+    // ---------------------------------------------------------------------------------------------------------
     NSMutableArray *mutableData = [NSMutableArray array];
     [mutableData addObject:@{@"title" : @"Node Containers", @"data" : mutableNodesContainerData}];
     [mutableData addObject:@{@"title" : @"Nodes", @"data" : mutableNodesData}];
@@ -543,6 +544,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     return self.data.count;
 }
 
+// 代理中没有这个方法 所以不会被执行
 - (nullable NSString *)tableNode:(ASTableNode *)tableNode titleForHeaderInSection:(NSInteger)section
 {
     return self.data[section][@"title"];
@@ -558,12 +560,13 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     // You should get the node or data you want to pass to the cell node outside of the ASCellNodeBlock
     ASDisplayNode<ASLayoutSpecListEntry> *node = self.data[indexPath.section][@"data"][indexPath.row];
     return ^{
+        // cell
         OverviewTitleDescriptionCellNode *cellNode = [OverviewTitleDescriptionCellNode new];
         
         NSDictionary *titleNodeAttributes = @{
-            NSFontAttributeName : [UIFont boldSystemFontOfSize:14.0],
-            NSForegroundColorAttributeName : [UIColor blackColor]
-        };
+                                              NSFontAttributeName : [UIFont boldSystemFontOfSize:14.0],
+                                              NSForegroundColorAttributeName : [UIColor blackColor]
+                                              };
         cellNode.titleNode.attributedText = [[NSAttributedString alloc] initWithString:node.entryTitle attributes:titleNodeAttributes];
         
         if (node.entryDescription) {
