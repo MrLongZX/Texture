@@ -21,8 +21,10 @@
 
 #import "OverviewDetailViewController.h"
 #import "OverviewASCollectionNode.h"
+#import "YLOverViewASCollectionNode.h"
 #import "OverviewASTableNode.h"
 #import "OverviewASPagerNode.h"
+#import "YLOverViewASPagerNode.h"
 
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
@@ -160,7 +162,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     NSMutableArray *mutableNodesContainerData = [NSMutableArray array];
     
 #pragma mark ASCollectionNode
-    childNode = [OverviewASCollectionNode new];
+    childNode = [YLOverViewASCollectionNode new];
     
     // 由collectoin node 子视图 获取 父视图
     parentNode = [self centeringParentNodeWithInset:UIEdgeInsetsZero child:childNode];
@@ -178,7 +180,7 @@ typedef ASLayoutSpec *(^OverviewDisplayNodeSizeThatFitsBlock)(ASSizeRange constr
     [mutableNodesContainerData addObject:parentNode];
     
 #pragma mark ASPagerNode
-    childNode = [OverviewASPagerNode new];
+    childNode = [YLOverViewASPagerNode new];
     
     // 由pager node 子视图 获取 父视图
     parentNode = [self centeringParentNodeWithInset:UIEdgeInsetsZero child:childNode];

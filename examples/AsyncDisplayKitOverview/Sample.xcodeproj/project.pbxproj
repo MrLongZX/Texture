@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		222F36FE2111B748001C73A8 /* YLOverViewASCollectionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 222F36FD2111B748001C73A8 /* YLOverViewASCollectionNode.m */; };
+		22673A2C2118487F002ABE39 /* YLOverViewASPagerNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 22673A2B2118487F002ABE39 /* YLOverViewASPagerNode.m */; };
 		697216351CCD8FB300122312 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 697216341CCD8FB300122312 /* main.m */; };
 		697216381CCD8FB300122312 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 697216371CCD8FB300122312 /* AppDelegate.m */; };
 		697216401CCD8FB300122312 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6972163F1CCD8FB300122312 /* Assets.xcassets */; };
@@ -23,6 +24,8 @@
 /* Begin PBXFileReference section */
 		222F36FC2111B748001C73A8 /* YLOverViewASCollectionNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLOverViewASCollectionNode.h; sourceTree = "<group>"; };
 		222F36FD2111B748001C73A8 /* YLOverViewASCollectionNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLOverViewASCollectionNode.m; sourceTree = "<group>"; };
+		22673A2A2118487F002ABE39 /* YLOverViewASPagerNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLOverViewASPagerNode.h; sourceTree = "<group>"; };
+		22673A2B2118487F002ABE39 /* YLOverViewASPagerNode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLOverViewASPagerNode.m; sourceTree = "<group>"; };
 		697216301CCD8FB300122312 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		697216341CCD8FB300122312 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		697216361CCD8FB300122312 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 				222F36FD2111B748001C73A8 /* YLOverViewASCollectionNode.m */,
 				697216531CCD939000122312 /* OverviewASPagerNode.h */,
 				697216541CCD939000122312 /* OverviewASPagerNode.m */,
+				22673A2A2118487F002ABE39 /* YLOverViewASPagerNode.h */,
+				22673A2B2118487F002ABE39 /* YLOverViewASPagerNode.m */,
 				697216551CCD939000122312 /* OverviewASTableNode.h */,
 				697216561CCD939000122312 /* OverviewASTableNode.m */,
 			);
@@ -230,6 +235,7 @@
 				697216351CCD8FB300122312 /* main.m in Sources */,
 				697216571CCD939000122312 /* OverviewASCollectionNode.m in Sources */,
 				697216591CCD939000122312 /* OverviewASTableNode.m in Sources */,
+				22673A2C2118487F002ABE39 /* YLOverViewASPagerNode.m in Sources */,
 				6972164F1CCD938A00122312 /* OverviewDetailViewController.m in Sources */,
 				6972164E1CCD938A00122312 /* OverviewComponentsViewController.m in Sources */,
 			);
