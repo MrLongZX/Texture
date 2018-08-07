@@ -113,9 +113,10 @@ static CGSize const kItemSize = (CGSize){180, 90};
 }
 
 #pragma mark - ASCollectionGalleryLayoutPropertiesProviding
-
+// 返回每个元素固定大小
 - (CGSize)galleryLayoutDelegate:(ASCollectionGalleryLayoutDelegate *)delegate sizeForElements:(ASElementMap *)elements
 {
+  // 必须在主线程
   ASDisplayNodeAssertMainThread();
   return kItemSize;
 }

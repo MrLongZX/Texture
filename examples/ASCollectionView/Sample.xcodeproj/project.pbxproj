@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		225E3AE121198CB300904C71 /* YLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 225E3AE021198CB300904C71 /* YLViewController.m */; };
 		25FDEC921BF31EE700CEB123 /* ItemNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 25FDEC911BF31EE700CEB123 /* ItemNode.m */; };
 		9B92C8811BC17D3000EE46B2 /* SupplementaryNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B92C8801BC17D3000EE46B2 /* SupplementaryNode.m */; };
 		9BA2CEA11BB2579C00D18414 /* Launchboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BA2CEA01BB2579C00D18414 /* Launchboard.storyboard */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		225E3ADF21198CB300904C71 /* YLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YLViewController.h; sourceTree = "<group>"; };
+		225E3AE021198CB300904C71 /* YLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YLViewController.m; sourceTree = "<group>"; };
 		25FDEC901BF31EE700CEB123 /* ItemNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemNode.h; sourceTree = "<group>"; };
 		25FDEC911BF31EE700CEB123 /* ItemNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemNode.m; sourceTree = "<group>"; };
 		3AE14FE81840274F92ABA227 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 				AC3C4A661A11F47200143C57 /* AppDelegate.m */,
 				AC3C4A681A11F47200143C57 /* ViewController.h */,
 				AC3C4A691A11F47200143C57 /* ViewController.m */,
+				225E3ADF21198CB300904C71 /* YLViewController.h */,
+				225E3AE021198CB300904C71 /* YLViewController.m */,
 				FC3FCA7E1C2B1564009F6D6D /* PresentingViewController.h */,
 				FC3FCA7F1C2B1564009F6D6D /* PresentingViewController.m */,
 				AC3C4A8D1A11F80C00143C57 /* Images.xcassets */,
@@ -231,6 +236,7 @@
 				AC3C4A6A1A11F47200143C57 /* ViewController.m in Sources */,
 				9B92C8811BC17D3000EE46B2 /* SupplementaryNode.m in Sources */,
 				FC3FCA801C2B1564009F6D6D /* PresentingViewController.m in Sources */,
+				225E3AE121198CB300904C71 /* YLViewController.m in Sources */,
 				AC3C4A671A11F47200143C57 /* AppDelegate.m in Sources */,
 				AC3C4A641A11F47200143C57 /* main.m in Sources */,
 			);

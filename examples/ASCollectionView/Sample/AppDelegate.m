@@ -19,6 +19,7 @@
 
 #import "PresentingViewController.h"
 #import "ViewController.h"
+#import "YLViewController.h"
 
 @implementation AppDelegate
 
@@ -42,7 +43,7 @@
 #if SIMULATE_WEB_RESPONSE
   UIViewController *viewController = [[PresentingViewController alloc] init];
 #else
-  UIViewController *viewController = [[ViewController alloc] init];
+  YLViewController *viewController = [[YLViewController alloc] init];
   viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Push Another Copy" style:UIBarButtonItemStylePlain target:self action:@selector(pushNewViewController)];
 #endif
   
