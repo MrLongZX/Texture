@@ -16,25 +16,24 @@
 //
 
 #import "ViewController.h"
-
 #import <AsyncDisplayKit/AsyncDisplayKit.h>
 
 #pragma mark - TransitionNode
 
-#define USE_CUSTOM_LAYOUT_TRANSITION 0
+#define USE_CUSTOM_LAYOUT_TRANSITION 1
 
 @interface TransitionNode : ASDisplayNode
+
 @property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, strong) ASButtonNode *buttonNode;
 @property (nonatomic, strong) ASTextNode *textNodeOne;
 @property (nonatomic, strong) ASTextNode *textNodeTwo;
+
 @end
 
 @implementation TransitionNode
 
-
 #pragma mark - Lifecycle
-
 - (instancetype)init
 {
   self = [super init];
@@ -69,7 +68,6 @@
   _textNodeOne.backgroundColor = [UIColor orangeColor];
   _textNodeTwo.backgroundColor = [UIColor greenColor];
   
-  
   return self;
 }
 
@@ -81,16 +79,13 @@
 }
 
 #pragma mark - Actions
-
 - (void)buttonPressed:(id)sender
 {
   self.enabled = !self.enabled;
   [self transitionLayoutWithAnimation:YES shouldMeasureAsync:NO measurementCompletion:nil];
 }
 
-
 #pragma mark - Layout
-
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
 {
   ASTextNode *nextTextNode = self.enabled ? self.textNodeTwo : self.textNodeOne;

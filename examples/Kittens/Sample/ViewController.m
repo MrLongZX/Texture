@@ -58,12 +58,11 @@ static const NSInteger kMaxLitterSize = 100;        // max number of kitten cell
 
   // populate our "data source" with some random kittens
   _kittenDataSource = [self createLitterWithSize:kLitterSize];
+  // 第一个cell显示简介
   _blurbNodeIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
   
   self.title = @"Kittens";
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
-                                                                                         target:self
-                                                                                         action:@selector(toggleEditingMode)];
+  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(toggleEditingMode)];
   
   return self;
 }
@@ -71,20 +70,22 @@ static const NSInteger kMaxLitterSize = 100;        // max number of kitten cell
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
-  _tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone; // KittenNode has its own separator
+  
+  // KittenNode has its own separator
+  _tableNode.view.separatorStyle = UITableViewCellSeparatorStyleNone;
+  // 这行代码不加也行
   [self.node addSubnode:_tableNode];
 }
 
 #pragma mark - Data Model
-
 - (NSMutableArray *)createLitterWithSize:(NSInteger)litterSize
 {
   NSMutableArray *kittens = [NSMutableArray arrayWithCapacity:litterSize];
   for (NSInteger i = 0; i < litterSize; i++) {
       
     // placekitten.com will return the same kitten picture if the same pixel height & width are requested,
-    // so generate kittens with different width & height values.
+    // so generate kittens with different width & height values.、
+    // 利用随机数获取不同小猫图片
     u_int32_t deltaX = arc4random_uniform(10) - 5;
     u_int32_t deltaY = arc4random_uniform(10) - 5;
     CGSize size = CGSizeMake(350 + 2 * deltaX, 350 + 4 * deltaY);
@@ -94,14 +95,13 @@ static const NSInteger kMaxLitterSize = 100;        // max number of kitten cell
   return kittens;
 }
 
+// 进行编辑
 - (void)toggleEditingMode
 {
   [_tableNode.view setEditing:!_tableNode.view.editing animated:YES];
 }
 
-
 #pragma mark - ASTableNode
-
 - (NSInteger)tableNode:(ASTableNode *)tableNode numberOfRowsInSection:(NSInteger)section
 {
   // blurb node + kLitterSize kitties
@@ -112,6 +112,7 @@ static const NSInteger kMaxLitterSize = 100;        // max number of kitten cell
 {
   // special-case the first row
   if ([_blurbNodeIndexPath compare:indexPath] == NSOrderedSame) {
+    // 简介
     BlurbNode *node = [[BlurbNode alloc] init];
     return node;
   }

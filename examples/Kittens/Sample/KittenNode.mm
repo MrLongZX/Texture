@@ -115,7 +115,7 @@ static const CGFloat kInnerPadding = 10.0f;
   _textNode.attributedText = [[NSAttributedString alloc] initWithString:[self kittyIpsum] attributes:[self textStyle]];
   [self addSubnode:_textNode];
   
-  // hairline cell separator
+  // hairline cell separator 分割线
   _divider = [[ASDisplayNode alloc] init];
   _divider.backgroundColor = [UIColor lightGrayColor];
   [self addSubnode:_divider];
@@ -123,6 +123,7 @@ static const CGFloat kInnerPadding = 10.0f;
   return self;
 }
 
+// 文字
 - (NSString *)kittyIpsum
 {
   NSArray *placeholders = [KittenNode placeholders];
@@ -139,6 +140,7 @@ static const CGFloat kInnerPadding = 10.0f;
   return string;
 }
 
+// 样式
 - (NSDictionary *)textStyle
 {
   UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
@@ -155,6 +157,7 @@ static const CGFloat kInnerPadding = 10.0f;
 }
 
 #if UseAutomaticLayout
+// 小猫图片放大、位置切换都是通过这个方法来重新布局实现
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize
 {
   // Set an intrinsic size for the image node
@@ -184,7 +187,7 @@ static const CGFloat kInnerPadding = 10.0f;
 {
   [super layout];
   
-  // Manually layout the divider.
+  // Manually layout the divider. 分割线
   CGFloat pixelHeight = 1.0f / [[UIScreen mainScreen] scale];
   _divider.frame = CGRectMake(0.0f, 0.0f, self.calculatedSize.width, pixelHeight);
 }
@@ -212,12 +215,14 @@ static const CGFloat kInnerPadding = 10.0f;
 }
 #endif
 
+// 点击小猫图片外其他区域
 - (void)toggleImageEnlargement
 {
   _isImageEnlarged = !_isImageEnlarged;
   [self setNeedsLayout];
 }
 
+// 点击小猫图片
 - (void)toggleNodesSwap
 {
   _swappedTextAndImage = !_swappedTextAndImage;

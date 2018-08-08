@@ -31,9 +31,7 @@ static NSString *kLinkAttributeName = @"PlaceKittenNodeLinkAttributeName";
 {
   ASTextNode *_textNode;
 }
-
 @end
-
 
 @implementation BlurbNode
 
@@ -74,6 +72,7 @@ static NSString *kLinkAttributeName = @"PlaceKittenNodeLinkAttributeName";
 - (void)didLoad
 {
   // enable highlighting now that self.layer has loaded -- see ASHighlightOverlayLayer.h
+  // 启动高亮显示
   self.layer.as_allowsHighlightDrawing = YES;
 
   [super didLoad];
@@ -119,6 +118,7 @@ static NSString *kLinkAttributeName = @"PlaceKittenNodeLinkAttributeName";
   return YES;
 }
 
+// 打开连接
 - (void)textNode:(ASTextNode *)richTextNode tappedLinkAttribute:(NSString *)attribute value:(NSURL *)URL atPoint:(CGPoint)point textRange:(NSRange)textRange
 {
   // the node tapped a link, open it

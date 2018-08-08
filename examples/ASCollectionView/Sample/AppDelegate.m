@@ -43,7 +43,7 @@
 #if SIMULATE_WEB_RESPONSE
   UIViewController *viewController = [[PresentingViewController alloc] init];
 #else
-  YLViewController *viewController = [[YLViewController alloc] init];
+  ViewController *viewController = [[ViewController alloc] init];
   viewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Push Another Copy" style:UIBarButtonItemStylePlain target:self action:@selector(pushNewViewController)];
 #endif
   
